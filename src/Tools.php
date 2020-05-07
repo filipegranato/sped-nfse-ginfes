@@ -45,7 +45,7 @@ class Tools extends BaseTools
      * @return string
      * @throws \Exception
      */
-    public function recepcionarLoteRps($arps, $lote,$apenas_validar = false)
+    public function recepcionarLoteRps($arps, $lote, $apenas_validar = false)
     {
         $operation = 'RecepcionarLoteRpsV3';
         $no_of_rps_in_lot = count($arps);
@@ -148,15 +148,6 @@ class Tools extends BaseTools
             . "<Protocolo>$protocolo</Protocolo>"
             . "</ConsultarLoteRpsEnvio>";
 
-        //assinatura dos dados
-/*        $content = Signer::sign(
-            $this->certificate,
-            $content,
-            'ConsultarLoteRpsEnvio',
-            '',
-            OPENSSL_ALGO_SHA1,
-            [false, false, null, null]
-        );*/
         $content = str_replace(['<?xml version="1.0"?>', '<?xml version="1.0" encoding="UTF-8"?>'], '', $content);
         Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
@@ -199,15 +190,7 @@ class Tools extends BaseTools
             $content .= "</Tomador>";
         }
         $content .= "</ConsultarNfseEnvio>";
-        //assinatura dos dados
-/*        $content = Signer::sign(
-            $this->certificate,
-            $content,
-            'ConsultarNfseEnvio',
-            '',
-            OPENSSL_ALGO_SHA1,
-            [false, false, null, null]
-        );*/
+
         $content = str_replace(['<?xml version="1.0"?>', '<?xml version="1.0" encoding="UTF-8"?>'], '', $content);
         Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
@@ -258,10 +241,7 @@ class Tools extends BaseTools
      */
     public function cancelarNfse($numero, $codigo = self::ERRO_EMISSAO, $id = null, $versao = "2")
     {
-       // if ($versao == "3") {
         return $this->cancelarNfseV3($numero, $codigo, $id);
-       // }
-       // return $this->cancelarNfseV2($numero);
     }
 
     /**
