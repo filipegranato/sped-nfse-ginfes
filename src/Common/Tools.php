@@ -127,7 +127,7 @@ class Tools
         $msgSize = strlen($request);
         $parameters = [
             "Content-Type: application/soap+xml;charset=utf-8",
-            "SOAPAction: \"$action\"",
+            "SOAPAction: ",
             "Content-length: $msgSize"
         ];
         $response = (string)$this->soap->send(
@@ -166,13 +166,13 @@ class Tools
      */
     protected function createSoapRequest($message, $operation)
     {
-        $cabecalho = "<ns2:cabecalho versao=\"{$this->wsobj->version}\" "
-            . "xmlns:ns2=\"http://www.ginfes.com.br/cabecalho_v03.xsd\">"
-            . "<versaoDados>{$this->wsobj->version}</versaoDados>"
-            . "</ns2:cabecalho>";
-
         $ns1 = "{$this->environment}_soapns";
         $ns1 = $this->wsobj->$ns1;
+
+        $cabecalho = "<cabecalho versao=\"{$this->wsobj->version}\">"
+            . "<versaoDados>{$this->wsobj->version}</versaoDados>"
+            . "</cabecalho>";
+
 
         $env = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">"
             . "<soapenv:Header/>"
@@ -182,9 +182,9 @@ class Tools
             $env .= "<arg0>"
                 . $cabecalho
                 . "</arg0>"
-                . "<arg1>"
+                . "<arg1><![CDATA["
                 . $message
-                . "</arg1>";
+                . "]]></arg1>";
         } else {
             $env .= "<arg0>"
                 . $message
