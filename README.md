@@ -1,3 +1,5 @@
+### ESSE PROJETO FOI ALTERADO PARA ATENDER O MUNICÍPIO DE SÃO JOSÉ DOS CAMPOS
+
 # sped-nfse-ginfes
 
 Api para comunicação com webservices do Projeto NFSe Ginfes
